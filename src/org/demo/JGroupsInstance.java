@@ -3,6 +3,8 @@ package org.demo;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
+import org.jgroups.annotations.MBean;
+import org.jgroups.annotations.ManagedAttribute;
 import org.jgroups.logging.Log;
 import org.jgroups.logging.LogFactory;
 import org.jgroups.util.AsciiString;
@@ -17,6 +19,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author Bela Ban
  * @since x.y
  */
+@MBean(description="Handles the JGroups channel and the topics")
 public class JGroupsInstance<T> extends ReceiverAdapter {
     protected JChannel                                      ch;
     protected final ConcurrentMap<AsciiString,TopicImpl<T>> topics=new ConcurrentHashMap<>();
@@ -37,6 +40,12 @@ public class JGroupsInstance<T> extends ReceiverAdapter {
         ch.setReceiver(this);
         ch.connect(clusterName);
     }
+
+    @ManagedAttribute public String getTopics() {
+        return topics.keySet().toString();
+    }
+
+    @ManagedAttribute public int numTopics() {return topics.size();}
 
     public ITopic<T> getTopic(String topic_name) {
         AsciiString name=new AsciiString(topic_name);

@@ -1,6 +1,7 @@
 
 package org.demo;
 
+import org.jgroups.jmx.JmxConfigurator;
 import org.jgroups.util.Util;
 
 import java.util.concurrent.Executor;
@@ -24,13 +25,17 @@ public class PubSubDemo implements MessageListener<MyEvent> {
 
         PubSubDemo sample = new PubSubDemo();
         JGroupsInstance jgroupsInstance = JGroups.newJGroupsInstance(props);
+        JmxConfigurator.register(jgroupsInstance, Util.getMBeanServer(), "jgroups:type=pubsub");
+
         ITopic topic = jgroupsInstance.getTopic("default");
         topic.addMessageListener( sample );
+        JmxConfigurator.register(topic, Util.getMBeanServer(), "jgroups:type=pubsub,topic=default");
 
         for(int i=0; i < 10; i++)
             topic.publish(new MyEvent(System.currentTimeMillis()));
 
         Util.sleep(1000);
+        Util.keyPress("enter to stop");
         jgroupsInstance.destroy();
     }
 
