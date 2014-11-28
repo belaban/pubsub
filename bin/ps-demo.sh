@@ -2,5 +2,5 @@
 
 ## PubSubDemo [config]
 
-`dirname $0`/run.sh org.demo.PubSubDemo config.xml $*
+`dirname $0`/run.sh org.demo.PubSubDemo -props config.xml $*
 
