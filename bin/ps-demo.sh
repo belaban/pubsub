@@ -1,4 +1,6 @@
 #!/bin/bash
 
-`dirname $0`/run.sh org.demo.PubSubDemo -props config.xml $*
+## PubSubDemo [config]
+
+`dirname $0`/run.sh org.demo.PubSubDemo config.xml $*
 
