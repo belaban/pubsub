@@ -48,6 +48,6 @@ public class TopicImpl<T> implements ITopic<T> {
     protected void notifyListeners(T msg) {
         num_received++;
         for(MessageListener<T> listener: listeners)
-            listener.onMessage(new Message<T>(msg));
+            listener.onMessage(new Message<>(msg));
     }
 }
