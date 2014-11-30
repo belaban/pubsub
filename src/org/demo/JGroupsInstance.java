@@ -68,7 +68,7 @@ public class JGroupsInstance<T> extends ReceiverAdapter {
             AsciiString topic_name=Bits.readAsciiString(in);
             TopicImpl<T> topic=topics.get(topic_name);
             if(topic == null) {
-                log.error("failed dispatching to local topic %s: not found", topic_name);
+                // log.error("failed dispatching to local topic %s: not found", topic_name);
                 return;
             }
             T data=(T)Util.objectFromStream(in);
