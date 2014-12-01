@@ -15,7 +15,7 @@ import java.lang.reflect.Field;
 public class PerfTest implements MessageListener<PerfTest.PerfData> {
     protected JGroupsInstance jgroupsInstance;
     protected String          default_topic="perf";
-    protected int             num_msgs=1000; // number of msgs to post to topic "perf"
+    protected int             num_msgs=50000; // number of msgs to post to topic "perf"
     protected int             msg_size=1000; // msg size in bytes
     protected long            start; // timestamp start test
     protected long            time;  // time in ms for the test
@@ -108,7 +108,7 @@ public class PerfTest implements MessageListener<PerfTest.PerfData> {
 
     protected void set(String name) {
         try {
-            int val=Util.readIntFromStdin(name + ":");
+            int val=Util.readIntFromStdin(name + ": ");
             Field field=Util.getField(getClass(), name);
             field.setInt(this, val);
         }
