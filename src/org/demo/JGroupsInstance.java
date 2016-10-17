@@ -7,10 +7,7 @@ import org.jgroups.annotations.MBean;
 import org.jgroups.annotations.ManagedAttribute;
 import org.jgroups.logging.Log;
 import org.jgroups.logging.LogFactory;
-import org.jgroups.util.AsciiString;
-import org.jgroups.util.Bits;
-import org.jgroups.util.ByteArrayDataInputStream;
-import org.jgroups.util.Util;
+import org.jgroups.util.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -71,7 +68,7 @@ public class JGroupsInstance<T> extends ReceiverAdapter {
                 // log.error("failed dispatching to local topic %s: not found", topic_name);
                 return;
             }
-            T data=(T)Util.objectFromStream(in);
+            T data=Util.objectFromStream(in);
             topic.notifyListeners(data);
         }
         catch(Throwable t) {
